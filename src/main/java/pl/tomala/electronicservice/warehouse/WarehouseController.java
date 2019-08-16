@@ -30,7 +30,7 @@ public class WarehouseController {
     @RequestMapping("/all")
     @ResponseBody
     public String all() {
-        return Arrays.toString(warehouseService.all()   .toArray());
+        return Arrays.toString(warehouseService.all().toArray());
     }
 
     @RequestMapping("/repair/{id}")

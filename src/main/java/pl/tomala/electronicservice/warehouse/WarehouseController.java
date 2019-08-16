@@ -33,6 +33,12 @@ public class WarehouseController {
         return Arrays.toString(warehouseService.all().toArray());
     }
 
+    @RequestMapping("/break/{id}")
+    @ResponseBody
+    public String breakDown(@PathVariable("id") Long id) {
+        return warehouseService.breakDown(id).toString();
+    }
+
     @RequestMapping("/repair/{id}")
     @ResponseBody
     public String repair(@PathVariable("id") Long id) {

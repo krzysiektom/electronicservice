@@ -20,7 +20,6 @@ public class WarehouseService {
     public Warehouse add(Long deviceId) {
         Warehouse warehouse = new Warehouse();
         warehouse.setDevice(deviceRepository.getOne(deviceId));
-        warehouse.setState(State.BROKEN);
         warehouseRepository.save(warehouse);
         return warehouse;
     }
@@ -38,6 +37,12 @@ public class WarehouseService {
     public Warehouse repair(Long id) {
         Warehouse warehouse = warehouseRepository.getOne(id);
         warehouse.setState(State.FUNCTIONAL);
+        return warehouse;
+    }
+
+    public Warehouse breakDown(Long id) {
+        Warehouse warehouse = warehouseRepository.getOne(id);
+        warehouse.setState(State.BROKEN);
         return warehouse;
     }
 

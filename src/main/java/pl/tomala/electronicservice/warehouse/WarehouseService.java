@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.tomala.electronicservice.State;
 import pl.tomala.electronicservice.device.DeviceRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,18 +19,13 @@ public class WarehouseService {
     public Warehouse add(Long deviceId) {
         Warehouse warehouse = new Warehouse();
         warehouse.setDevice(deviceRepository.getOne(deviceId));
+        warehouse.setState(State.FUNCTIONAL);
         warehouseRepository.save(warehouse);
         return warehouse;
     }
 
     public List<Warehouse> all() {
-        List<Warehouse> list = new ArrayList<>();
-        for (Warehouse warehouse : warehouseRepository.findAll()) {
-            if (warehouse.getState() != State.COLLECTED) {
-                list.add(warehouse);
-            }
-        }
-        return list;
+        return warehouseRepository.findAll();
     }
 
     public Warehouse repair(Long id) {
@@ -48,10 +42,11 @@ public class WarehouseService {
 
     public Warehouse collect(Long id) {
         Warehouse warehouse = warehouseRepository.getOne(id);
-        if (warehouse.getState() == State.FUNCTIONAL) {
-            warehouse.setState(State.COLLECTED);
-        }
+        warehouse.setState(State.COLLECTED);
         return warehouse;
     }
 
+    public List<Warehouse> allBy(String stateName) {
+        return warehouseRepository.findAllByState(State.valueOf(stateName));
+    }
 }

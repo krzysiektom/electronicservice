@@ -17,8 +17,7 @@ public class Parameter {
     private String name;
 
     @OneToMany(mappedBy = "parameter")
-    private List<ParamName> parameters =
-            new ArrayList<>();
+    private List<ParamName> parameters = new ArrayList<>();
 
     public Parameter() {
     }

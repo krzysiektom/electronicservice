@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.tomala.electronicservice.Category;
 
+import java.util.Arrays;
+
 @Controller
 @RequestMapping("devices")
 public class DeviceController {
@@ -19,5 +21,10 @@ public class DeviceController {
         return "devices";
     }
 
+    @RequestMapping("/all")
+    @ResponseBody
+    public String all() {
+        return Arrays.toString(deviceRepository.findAll().toArray());
+    }
 
 }
